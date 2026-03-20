@@ -1,238 +1,26 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en" data-beasties-container>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI BMI Insight Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --male: #3b82f6;
-            --female: #ec4899;
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
-        }
+  <meta charset="utf-8">
+  <title>Ionic App</title>
 
-        body {
-            font-family: 'Kanit', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+  <base href="/">
 
-        .container {
-            background: var(--card);
-            padding: 2.5rem;
-            border-radius: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
+  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
 
-        h2 { margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 0.5px; }
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png">
 
-        /* Gender Toggle */
-        .gender-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-        }
+  <!-- add to homescreen for ios -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>:root{--ion-color-primary:#0054e9;--ion-color-primary-rgb:0, 84, 233;--ion-color-primary-contrast:#fff;--ion-color-primary-contrast-rgb:255, 255, 255;--ion-color-primary-shade:#004acd;--ion-color-primary-tint:#1a65eb;--ion-color-secondary:#0163aa;--ion-color-secondary-rgb:1, 99, 170;--ion-color-secondary-contrast:#fff;--ion-color-secondary-contrast-rgb:255, 255, 255;--ion-color-secondary-shade:#015796;--ion-color-secondary-tint:#1a73b3;--ion-color-tertiary:#6030ff;--ion-color-tertiary-rgb:96, 48, 255;--ion-color-tertiary-contrast:#fff;--ion-color-tertiary-contrast-rgb:255, 255, 255;--ion-color-tertiary-shade:#542ae0;--ion-color-tertiary-tint:#7045ff;--ion-color-success:#2dd55b;--ion-color-success-rgb:45, 213, 91;--ion-color-success-contrast:#000;--ion-color-success-contrast-rgb:0, 0, 0;--ion-color-success-shade:#28bb50;--ion-color-success-tint:#42d96b;--ion-color-warning:#ffc409;--ion-color-warning-rgb:255, 196, 9;--ion-color-warning-contrast:#000;--ion-color-warning-contrast-rgb:0, 0, 0;--ion-color-warning-shade:#e0ac08;--ion-color-warning-tint:#ffca22;--ion-color-danger:#c5000f;--ion-color-danger-rgb:197, 0, 15;--ion-color-danger-contrast:#fff;--ion-color-danger-contrast-rgb:255, 255, 255;--ion-color-danger-shade:#ad000d;--ion-color-danger-tint:#cb1a27;--ion-color-light:#f4f5f8;--ion-color-light-rgb:244, 245, 248;--ion-color-light-contrast:#000;--ion-color-light-contrast-rgb:0, 0, 0;--ion-color-light-shade:#d7d8da;--ion-color-light-tint:#f5f6f9;--ion-color-medium:#636469;--ion-color-medium-rgb:99, 100, 105;--ion-color-medium-contrast:#fff;--ion-color-medium-contrast-rgb:255, 255, 255;--ion-color-medium-shade:#57585c;--ion-color-medium-tint:#737478;--ion-color-dark:#222428;--ion-color-dark-rgb:34, 36, 40;--ion-color-dark-contrast:#fff;--ion-color-dark-contrast-rgb:255, 255, 255;--ion-color-dark-shade:#1e2023;--ion-color-dark-tint:#383a3e}html{--ion-dynamic-font:-apple-system-body;--ion-font-family:var(--ion-default-font)}body{background:var(--ion-background-color);color:var(--ion-text-color)}@supports (padding-top: 20px){html{--ion-safe-area-top:var(--ion-statusbar-padding)}}@supports (padding-top: env(safe-area-inset-top)){html{--ion-safe-area-top:var(--safe-area-inset-top, env(safe-area-inset-top));--ion-safe-area-bottom:var(--safe-area-inset-bottom, env(safe-area-inset-bottom));--ion-safe-area-left:var(--safe-area-inset-left, env(safe-area-inset-left));--ion-safe-area-right:var(--safe-area-inset-right, env(safe-area-inset-right))}}*{box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}html{width:100%;height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;margin:0;padding:0;position:fixed;width:100%;max-width:100%;height:100%;max-height:100%;transform:translateZ(0);text-rendering:optimizeLegibility;overflow:hidden;touch-action:manipulation;-webkit-user-drag:none;-ms-content-zooming:none;word-wrap:break-word;overscroll-behavior-y:none;-webkit-text-size-adjust:none;text-size-adjust:none}html{font-family:var(--ion-font-family)}@supports (-webkit-touch-callout: none){html{font:var(--ion-dynamic-font, 16px var(--ion-font-family))}}@media (prefers-color-scheme: dark){:root{--ion-color-primary:#4d8dff;--ion-color-primary-rgb:77, 141, 255;--ion-color-primary-contrast:#000;--ion-color-primary-contrast-rgb:0, 0, 0;--ion-color-primary-shade:#447ce0;--ion-color-primary-tint:#5f98ff;--ion-color-secondary:#46b1ff;--ion-color-secondary-rgb:70, 177, 255;--ion-color-secondary-contrast:#000;--ion-color-secondary-contrast-rgb:0, 0, 0;--ion-color-secondary-shade:#3e9ce0;--ion-color-secondary-tint:#59b9ff;--ion-color-tertiary:#8482fb;--ion-color-tertiary-rgb:132, 130, 251;--ion-color-tertiary-contrast:#000;--ion-color-tertiary-contrast-rgb:0, 0, 0;--ion-color-tertiary-shade:#7472dd;--ion-color-tertiary-tint:#908ffb;--ion-color-success:#2dd55b;--ion-color-success-rgb:45, 213, 91;--ion-color-success-contrast:#000;--ion-color-success-contrast-rgb:0, 0, 0;--ion-color-success-shade:#28bb50;--ion-color-success-tint:#42d96b;--ion-color-warning:#ffce31;--ion-color-warning-rgb:255, 206, 49;--ion-color-warning-contrast:#000;--ion-color-warning-contrast-rgb:0, 0, 0;--ion-color-warning-shade:#e0b52b;--ion-color-warning-tint:#ffd346;--ion-color-danger:#f24c58;--ion-color-danger-rgb:242, 76, 88;--ion-color-danger-contrast:#000;--ion-color-danger-contrast-rgb:0, 0, 0;--ion-color-danger-shade:#d5434d;--ion-color-danger-tint:#f35e69;--ion-color-light:#222428;--ion-color-light-rgb:34, 36, 40;--ion-color-light-contrast:#fff;--ion-color-light-contrast-rgb:255, 255, 255;--ion-color-light-shade:#1e2023;--ion-color-light-tint:#383a3e;--ion-color-medium:#989aa2;--ion-color-medium-rgb:152, 154, 162;--ion-color-medium-contrast:#000;--ion-color-medium-contrast-rgb:0, 0, 0;--ion-color-medium-shade:#86888f;--ion-color-medium-tint:#a2a4ab;--ion-color-dark:#f4f5f8;--ion-color-dark-rgb:244, 245, 248;--ion-color-dark-contrast:#000;--ion-color-dark-contrast-rgb:0, 0, 0;--ion-color-dark-shade:#d7d8da;--ion-color-dark-tint:#f5f6f9}}</style><link rel="stylesheet" href="styles-6KTEQGYX.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-6KTEQGYX.css"></noscript></head>
 
-        .gender-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            border: 2px solid #334155;
-            background: transparent;
-            color: #94a3b8;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Kanit', sans-serif;
-        }
-
-        .gender-btn.active[data-gender="male"] {
-            border-color: var(--male);
-            color: white;
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .gender-btn.active[data-gender="female"] {
-            border-color: var(--female);
-            color: white;
-            background: rgba(236, 72, 153, 0.1);
-        }
-
-        .input-group { margin-bottom: 1.2rem; text-align: left; }
-        label { display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem; }
-
-        input {
-            width: 100%;
-            padding: 14px;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            color: white;
-            font-size: 1.1rem;
-            box-sizing: border-box;
-            transition: 0.3s;
-        }
-
-        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2); }
-
-        button#calc-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            border: none;
-            border-radius: 15px;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: transform 0.2s;
-        }
-
-        button#calc-btn:active { transform: scale(0.98); }
-
-        /* Result Section */
-        #result-area {
-            margin-top: 2.5rem;
-            display: none;
-            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .bmi-display {
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1;
-            margin: 10px 0;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .status-pill {
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            background: #334155;
-            margin-bottom: 15px;
-        }
-
-        .advice-box {
-            background: rgba(255,255,255,0.03);
-            padding: 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            line-height: 1.5;
-        }
-    </style>
-</head>
 <body>
+  <app-root></app-root>
+<link rel="modulepreload" href="chunk-3L3M767H.js"><link rel="modulepreload" href="chunk-TVNCLVPZ.js"><link rel="modulepreload" href="chunk-LSHKZWZW.js"><link rel="modulepreload" href="chunk-PNUKUDNT.js"><link rel="modulepreload" href="chunk-F73J3XBP.js"><link rel="modulepreload" href="chunk-YASFHDXT.js"><link rel="modulepreload" href="chunk-YUNOCBLG.js"><link rel="modulepreload" href="chunk-YJ5TA4PT.js"><link rel="modulepreload" href="chunk-2NIBOUWM.js"><link rel="modulepreload" href="chunk-I547WOKC.js"><script src="polyfills-TDCRLYKL.js" type="module"></script><script src="main-ADDEODBN.js" type="module"></script></body>
 
-<div class="container">
-    <h2>BMI PRO ANALYTICS</h2>
-    
-    <div class="gender-selector">
-        <button class="gender-btn active" data-gender="male" onclick="setGender('male')">ชาย ♂</button>
-        <button class="gender-btn" data-gender="female" onclick="setGender('female')">หญิง ♀</button>
-    </div>
-
-    <div class="input-group">
-        <label>ส่วนสูง (cm)</label>
-        <input type="number" id="height" placeholder="170">
-    </div>
-
-    <div class="input-group">
-        <label>น้ำหนัก (kg)</label>
-        <input type="number" id="weight" placeholder="65">
-    </div>
-
-    <button id="calc-btn" onclick="calculateBMI()">คำนวณผลลัพธ์</button>
-
-    <div id="result-area">
-        <div class="status-pill" id="status">ปกติ</div>
-        <div class="bmi-display" id="bmi-num">0.0</div>
-        <div class="advice-box">
-            <span id="advice-text">ยินดีด้วย! ร่างกายคุณอยู่ในเกณฑ์ที่ดีมาก</span>
-        </div>
-    </div>
-</div>
-
-<script>
-    let currentGender = 'male';
-
-    function setGender(gender) {
-        currentGender = gender;
-        document.querySelectorAll('.gender-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.dataset.gender === gender) btn.classList.add('active');
-        });
-    }
-
-    function calculateBMI() {
-        const h = document.getElementById('height').value / 100;
-        const w = document.getElementById('weight').value;
-        const resultArea = document.getElementById('result-area');
-        
-        if (h > 0 && w > 0) {
-            const bmi = (w / (h * h)).toFixed(1);
-            document.getElementById('bmi-num').innerText = bmi;
-            
-            let status = "";
-            let color = "";
-            let advice = "";
-
-            if (bmi < 18.5) {
-                status = "น้ำหนักน้อย";
-                color = "#60a5fa";
-                advice = currentGender === 'male' ? "ควรเพิ่มโปรตีนและเล่นเวทเสริมสร้างกล้ามเนื้อ" : "ควรทานอาหารที่มีประโยชน์และพักผ่อนให้เพียงพอ";
-            } else if (bmi < 23) {
-                status = "สมส่วน";
-                color = "#34d399";
-                advice = "หุ่นดีมากครับ/ค่ะ รักษาวินัยการกินแบบนี้ต่อไปนะ";
-            } else if (bmi < 25) {
-                status = "น้ำหนักเกิน";
-                color = "#fbbf24";
-                advice = "เริ่มมีส่วนเกินเล็กน้อย ลองลดของหวานและคาร์โบไฮเดรตลง";
-            } else if (bmi < 30) {
-                status = "เริ่มอ้วน";
-                color = "#f97316";
-                advice = currentGender === 'male' ? "ระวังลงพุง! ควรคาร์ดิโออย่างน้อย 150 นาที/สัปดาห์" : "เน้นการเดินบ่อยๆ และเลี่ยงเครื่องดื่มที่มีน้ำตาลสูง";
-            } else {
-                status = "โรคอ้วน";
-                color = "#ef4444";
-                advice = "เพื่อสุขภาพระยะยาว ควรเริ่มปรึกษาผู้เชี่ยวชาญเพื่อคุมน้ำหนัก";
-            }
-
-            const statusPill = document.getElementById('status');
-            statusPill.innerText = status;
-            statusPill.style.color = color;
-            statusPill.style.border = `1px solid ${color}`;
-            
-            document.getElementById('bmi-num').style.color = color;
-            document.getElementById('advice-text').innerText = advice;
-            
-            resultArea.style.display = 'block';
-        } else {
-            alert("กรุณาใส่ข้อมูลให้ครบก่อนนะคนเก่ง!");
-        }
-    }
-</script>
-
-</body>
 </html>
