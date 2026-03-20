@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate BMI Insights</title>
+    <title>AI BMI Insight Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
+            --male: #3b82f6;
+            --female: #ec4899;
             --bg: #0f172a;
             --card: #1e293b;
             --text: #f8fafc;
@@ -26,133 +28,162 @@
 
         .container {
             background: var(--card);
-            padding: 2rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        h2 { margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 1px; }
+        h2 { margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 0.5px; }
 
-        .input-group {
+        /* Gender Toggle */
+        .gender-selector {
+            display: flex;
+            gap: 10px;
             margin-bottom: 1.5rem;
-            text-align: left;
         }
 
-        label { display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.9rem; }
+        .gender-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid #334155;
+            background: transparent;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .gender-btn.active[data-gender="male"] {
+            border-color: var(--male);
+            color: white;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .gender-btn.active[data-gender="female"] {
+            border-color: var(--female);
+            color: white;
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .input-group { margin-bottom: 1.2rem; text-align: left; }
+        label { display: block; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem; }
 
         input {
             width: 100%;
-            padding: 12px;
-            background: #334155;
-            border: 2px solid transparent;
+            padding: 14px;
+            background: #0f172a;
+            border: 1px solid #334155;
             border-radius: 12px;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
             box-sizing: border-box;
             transition: 0.3s;
         }
 
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: #475569;
-        }
+        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2); }
 
-        button {
+        button#calc-btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             color: white;
             font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
+            margin-top: 10px;
+            transition: transform 0.2s;
         }
 
-        button:hover { opacity: 0.9; transform: translateY(-2px); }
+        button#calc-btn:active { transform: scale(0.98); }
 
-        /* ผลลัพธ์แบบล้ำๆ */
+        /* Result Section */
         #result-area {
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             display: none;
-            animation: fadeIn 0.5s ease-out;
+            animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .bmi-value {
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 0.5rem 0;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gauge Bar */
-        .gauge {
-            height: 8px;
-            width: 100%;
-            background: #334155;
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-            position: relative;
+        .bmi-display {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 10px 0;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        #gauge-progress {
-            height: 100%;
-            width: 0%;
-            transition: width 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: linear-gradient(90deg, #34d399, #fbbf24, #ef4444);
+        .status-pill {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            background: #334155;
+            margin-bottom: 15px;
+        }
+
+        .advice-box {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>BMI CALCULATOR</h2>
+    <h2>BMI PRO ANALYTICS</h2>
     
-    <div class="input-group">
-        <label>ส่วนสูง (ซม.)</label>
-        <input type="number" id="height" placeholder="เช่น 175" step="0.1">
+    <div class="gender-selector">
+        <button class="gender-btn active" data-gender="male" onclick="setGender('male')">ชาย ♂</button>
+        <button class="gender-btn" data-gender="female" onclick="setGender('female')">หญิง ♀</button>
     </div>
 
     <div class="input-group">
-        <label>น้ำหนัก (กก.)</label>
-        <input type="number" id="weight" placeholder="เช่น 70" step="0.1">
+        <label>ส่วนสูง (cm)</label>
+        <input type="number" id="height" placeholder="170">
     </div>
 
-    <button onclick="calculateBMI()">วิเคราะห์ผลลัพธ์</button>
+    <div class="input-group">
+        <label>น้ำหนัก (kg)</label>
+        <input type="number" id="weight" placeholder="65">
+    </div>
+
+    <button id="calc-btn" onclick="calculateBMI()">คำนวณผลลัพธ์</button>
 
     <div id="result-area">
-        <div class="status-badge" id="bmi-status">ปกติ</div>
-        <div class="bmi-value" id="bmi-num">22.5</div>
-        <div class="gauge">
-            <div id="gauge-progress"></div>
+        <div class="status-pill" id="status">ปกติ</div>
+        <div class="bmi-display" id="bmi-num">0.0</div>
+        <div class="advice-box">
+            <span id="advice-text">ยินดีด้วย! ร่างกายคุณอยู่ในเกณฑ์ที่ดีมาก</span>
         </div>
-        <p id="bmi-desc" style="color: #94a3b8; font-size: 0.85rem;"></p>
     </div>
 </div>
 
 <script>
+    let currentGender = 'male';
+
+    function setGender(gender) {
+        currentGender = gender;
+        document.querySelectorAll('.gender-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.dataset.gender === gender) btn.classList.add('active');
+        });
+    }
+
     function calculateBMI() {
         const h = document.getElementById('height').value / 100;
         const w = document.getElementById('weight').value;
@@ -164,49 +195,41 @@
             
             let status = "";
             let color = "";
-            let percent = 0;
-            let desc = "";
+            let advice = "";
 
             if (bmi < 18.5) {
-                status = "น้ำหนักน้อยกว่าเกณฑ์";
+                status = "น้ำหนักน้อย";
                 color = "#60a5fa";
-                percent = 20;
-                desc = "คุณควรรับประทานอาหารที่มีสารอาหารครบถ้วนมากขึ้นนะ";
+                advice = currentGender === 'male' ? "ควรเพิ่มโปรตีนและเล่นเวทเสริมสร้างกล้ามเนื้อ" : "ควรทานอาหารที่มีประโยชน์และพักผ่อนให้เพียงพอ";
             } else if (bmi < 23) {
-                status = "น้ำหนักปกติ / สุขภาพดี";
+                status = "สมส่วน";
                 color = "#34d399";
-                percent = 50;
-                desc = "ยอดเยี่ยม! รักษาสมดุลนี้ไว้ให้ดีครับ";
+                advice = "หุ่นดีมากครับ/ค่ะ รักษาวินัยการกินแบบนี้ต่อไปนะ";
             } else if (bmi < 25) {
-                status = "น้ำหนักเกิน (ท้วม)";
+                status = "น้ำหนักเกิน";
                 color = "#fbbf24";
-                percent = 70;
-                desc = "เริ่มมีพุงนิดๆ แล้วนะ ลองออกกำลังกายเพิ่มดูครับ";
+                advice = "เริ่มมีส่วนเกินเล็กน้อย ลองลดของหวานและคาร์โบไฮเดรตลง";
             } else if (bmi < 30) {
-                status = "อ้วน / โรคอ้วนระดับ 1";
+                status = "เริ่มอ้วน";
                 color = "#f97316";
-                percent = 85;
-                desc = "ควรเริ่มควบคุมอาหารและออกกำลังกายอย่างจริงจัง";
+                advice = currentGender === 'male' ? "ระวังลงพุง! ควรคาร์ดิโออย่างน้อย 150 นาที/สัปดาห์" : "เน้นการเดินบ่อยๆ และเลี่ยงเครื่องดื่มที่มีน้ำตาลสูง";
             } else {
-                status = "อ้วนมาก / โรคอ้วนระดับ 2";
+                status = "โรคอ้วน";
                 color = "#ef4444";
-                percent = 100;
-                desc = "เพื่อสุขภาพที่ดี ควรปรึกษาผู้เชี่ยวชาญด้านโภชนาการ";
+                advice = "เพื่อสุขภาพระยะยาว ควรเริ่มปรึกษาผู้เชี่ยวชาญเพื่อคุมน้ำหนัก";
             }
 
-            const statusBadge = document.getElementById('bmi-status');
-            statusBadge.innerText = status;
-            statusBadge.style.background = color + "22"; // Light bg
-            statusBadge.style.color = color;
-            statusBadge.style.border = `1px solid ${color}`;
+            const statusPill = document.getElementById('status');
+            statusPill.innerText = status;
+            statusPill.style.color = color;
+            statusPill.style.border = `1px solid ${color}`;
             
-            document.getElementById('gauge-progress').style.width = percent + "%";
-            document.getElementById('gauge-progress').style.background = color;
-            document.getElementById('bmi-desc').innerText = desc;
+            document.getElementById('bmi-num').style.color = color;
+            document.getElementById('advice-text').innerText = advice;
             
             resultArea.style.display = 'block';
         } else {
-            alert("กรุณากรอกข้อมูลให้ครบถ้วนครับ");
+            alert("กรุณาใส่ข้อมูลให้ครบก่อนนะคนเก่ง!");
         }
     }
 </script>
